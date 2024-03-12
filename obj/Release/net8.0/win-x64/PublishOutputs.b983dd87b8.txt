@@ -1,0 +1,2 @@
+G:\DSR Projects\DSRPackager\bin\publish\DSRPackager.pdb
+G:\DSR Projects\DSRPackager\bin\publish\DSRPackager.exe

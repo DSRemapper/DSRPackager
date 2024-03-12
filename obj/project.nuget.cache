@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "HvC/Z3onDqt0azwMHKH1kDUa49PI5SJUVjRLkh+T5nKcSAIJZ+KjHo28kJwiM8acRHPqX6BSH9jU9CBTFJrGDA==",
+  "success": true,
+  "projectFilePath": "G:\\DSR Projects\\DSRPackager\\DSRPackager.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Oscar\\.nuget\\packages\\system.commandline\\2.0.0-beta4.22272.1\\system.commandline.2.0.0-beta4.22272.1.nupkg.sha512"
+  ],
+  "logs": []
+}
