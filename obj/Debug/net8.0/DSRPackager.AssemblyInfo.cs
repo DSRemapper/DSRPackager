@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("DSRPackager")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8d796ab0a5cb97ef5864290d608c8c35555eb383")]
 [assembly: System.Reflection.AssemblyProductAttribute("DSRPackager")]
 [assembly: System.Reflection.AssemblyTitleAttribute("DSRPackager")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

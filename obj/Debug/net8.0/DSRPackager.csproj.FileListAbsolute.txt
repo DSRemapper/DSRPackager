@@ -27,4 +27,5 @@ G:\DSR Projects\DSRPackager\bin\Debug\net8.0\ru\System.CommandLine.resources.dll
 G:\DSR Projects\DSRPackager\bin\Debug\net8.0\tr\System.CommandLine.resources.dll
 G:\DSR Projects\DSRPackager\bin\Debug\net8.0\zh-Hans\System.CommandLine.resources.dll
 G:\DSR Projects\DSRPackager\bin\Debug\net8.0\zh-Hant\System.CommandLine.resources.dll
-G:\DSR Projects\DSRPackager\obj\Debug\net8.0\DSRPackager.csproj.CopyComplete
+G:\DSR Projects\DSRPackager\obj\Debug\net8.0\DSRPackager.sourcelink.json
+G:\DSR Projects\DSRPackager\obj\Debug\net8.0\DSRPacka.258307C3.Up2Date

@@ -22,9 +22,10 @@ G:\DSR Projects\DSRPackager\obj\Release\net8.0\DSRPackager.GeneratedMSBuildEdito
 G:\DSR Projects\DSRPackager\obj\Release\net8.0\DSRPackager.AssemblyInfoInputs.cache
 G:\DSR Projects\DSRPackager\obj\Release\net8.0\DSRPackager.AssemblyInfo.cs
 G:\DSR Projects\DSRPackager\obj\Release\net8.0\DSRPackager.csproj.CoreCompileInputs.cache
-G:\DSR Projects\DSRPackager\obj\Release\net8.0\DSRPackager.csproj.CopyComplete
 G:\DSR Projects\DSRPackager\obj\Release\net8.0\DSRPackager.dll
 G:\DSR Projects\DSRPackager\obj\Release\net8.0\DSRPackager.pdb
 G:\DSR Projects\DSRPackager\obj\Release\net8.0\DSRPackager.genruntimeconfig.cache
 G:\DSR Projects\DSRPackager\obj\Release\net8.0\refint\DSRPackager.dll
 G:\DSR Projects\DSRPackager\obj\Release\net8.0\ref\DSRPackager.dll
+G:\DSR Projects\DSRPackager\obj\Release\net8.0\DSRPackager.sourcelink.json
+G:\DSR Projects\DSRPackager\obj\Release\net8.0\DSRPacka.258307C3.Up2Date
