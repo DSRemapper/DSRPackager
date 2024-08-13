@@ -5,7 +5,7 @@
   },
   "projects": {
     "G:\\DSR Projects\\DSRPackager\\DSRPackager.csproj": {
-      "version": "1.0.0",
+      "version": "0.1.2",
       "restore": {
         "projectUniqueName": "G:\\DSR Projects\\DSRPackager\\DSRPackager.csproj",
         "projectName": "DSRPackager",
@@ -73,7 +73,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.303/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

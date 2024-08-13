@@ -13,11 +13,11 @@ using System.Reflection;
 
 [assembly: System.Reflection.AssemblyCompanyAttribute("DSRPackager")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
-[assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8d796ab0a5cb97ef5864290d608c8c35555eb383")]
+[assembly: System.Reflection.AssemblyFileVersionAttribute("0.1.0.24217")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("0.1.2+bc1b55d45c116c3ae84486113badf7f4c68ccfa8")]
 [assembly: System.Reflection.AssemblyProductAttribute("DSRPackager")]
 [assembly: System.Reflection.AssemblyTitleAttribute("DSRPackager")]
-[assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
+[assembly: System.Reflection.AssemblyVersionAttribute("0.1.0.24217")]
 
 // Generado por la clase WriteCodeFragment de MSBuild.
 
