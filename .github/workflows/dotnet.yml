@@ -24,9 +24,9 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore
     - name: Build Windows
-      run: dotnet publish -c Release -r win-x64 --self-contained -p:PublishSingleFile=true --no-restore --output "./build/win-x64"
+      run: dotnet publish -c Release -r win-x64 --self-contained -p:PublishSingleFile=true --output "./build/win-x64"
     - name: Build Linux
-      run: dotnet publish -c Release -r linux-x64 --self-contained -p:PublishSingleFile=true --no-restore --output "./build/linux-x64"
+      run: dotnet publish -c Release -r linux-x64 --self-contained -p:PublishSingleFile=true --output "./build/linux-x64"
     - name: Create GitHub Release
       id: create_release
       uses: softprops/action-gh-release@v2
