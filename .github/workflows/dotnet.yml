@@ -24,3 +24,12 @@ jobs:
       run: dotnet publish -c Release --runtime win-x64 --self-contained --output "./build/win-x64"
     - name: Build Linux
       run: dotnet publish -c Release --runtime linux-x64 --self-contained --output "./build/linux-x64"
+    - name: Create GitHub Release
+      id: create_release
+      uses: softprops/action-gh-release@v2
+      with:
+        files: |
+          ./build/win-x64/DSRPackager.exe
+          ./build/linux-x64/DSRPackager
+        draft: false
+        prerelease: false
