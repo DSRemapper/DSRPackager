@@ -1,0 +1,3 @@
+# DSRPackager
+
+`DSRPackager` is a command-line utility designed to bundle DSRemapper plugins into a distributable zip archive. It intelligently scans a specified plugin folder, gathering all relevant files like DLLs and assets based on their extensions, while excluding unnecessary dependencies. The tool inspects the plugin's assemblies to automatically determine its version and its required versions of the `DSRemapper.Core` and `DSRemapper.Framework` libraries. It then generates a `manifest.json` file containing this metadata and packages it along with the plugin files into a single, ready-to-use zip file for easy distribution and installation.
