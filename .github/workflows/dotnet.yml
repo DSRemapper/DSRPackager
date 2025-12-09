@@ -7,32 +7,52 @@ on:
   push:
     tags:
       - 'v[0-9]+.[0-9]+.[0-9]+'
+      - 'v[0-9]+.[0-9]+.[0-9]+-beta*'
+      - 'v[0-9]+.[0-9]+.[0-9]+-alpha*'
 
-permissions:
-  contents: write
 
 jobs:
-  build:
+  publish:
     runs-on: ubuntu-latest
 
+    permissions:
+      contents: write
+
     steps:
-    - uses: actions/checkout@v4
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v4
-      with:
-        dotnet-version: 8.0.x
-    - name: Restore dependencies
-      run: dotnet restore
-    - name: Build Windows
-      run: dotnet publish -c Release -r win-x64 --self-contained -p:PublishSingleFile=true --output "./build/win-x64"
-    - name: Build Linux
-      run: dotnet publish -c Release -r linux-x64 --self-contained -p:PublishSingleFile=true --output "./build/linux-x64"
-    - name: Create GitHub Release
-      id: create_release
-      uses: softprops/action-gh-release@v2
-      with:
-        files: |
-          ./build/win-x64/DSRPackager.exe
-          ./build/linux-x64/DSRPackager
-        draft: false
-        prerelease: false
+      - uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+
+      - name: Extract Base Version from Tag
+        id: version_extract
+        run: |
+          FULL_VERSION=$(echo ${{ github.ref_name }} | sed 's/^v//')
+          BASE_VERSION=$(echo "$FULL_VERSION" | grep -oE '^[0-9]+\.[0-9]+\.[0-9]+')
+          echo "FULL_VERSION=$FULL_VERSION" >> $GITHUB_OUTPUT
+          echo "BASE_VERSION=$BASE_VERSION" >> $GITHUB_OUTPUT
+
+      - name: Build Windows
+        run: dotnet publish -c Release -r win-x64 --self-contained -p:PublishSingleFile=true -o "./build/win-x64" \
+          -p:PackageVersion=${{ steps.version_extract.outputs.FULL_VERSION }} \
+          -p:AssemblyVersion=${{ steps.version_extract.outputs.BASE_VERSION }} \
+          -p:FileVersion=${{ steps.version_extract.outputs.BASE_VERSION }}
+
+      - name: Build Linux
+        run: dotnet publish -c Release -r linux-x64 --self-contained -p:PublishSingleFile=true -o "./build/linux-x64" \
+          -p:PackageVersion=${{ steps.version_extract.outputs.FULL_VERSION }} \
+          -p:AssemblyVersion=${{ steps.version_extract.outputs.BASE_VERSION }} \
+          -p:FileVersion=${{ steps.version_extract.outputs.BASE_VERSION }}
+
+      - name: Create GitHub Release
+        id: create_release
+        uses: softprops/action-gh-release@v2
+        with:
+          generate_release_notes: true 
+          files: |
+            ./build/win-x64/DSRPackager.exe
+            ./build/linux-x64/DSRPackager
+          draft: false
+          prerelease: ${{ contains(github.ref_name, 'alpha') || contains(github.ref_name, 'beta') }}
