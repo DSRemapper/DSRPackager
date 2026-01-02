@@ -28,7 +28,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="DSRemapper.Core" Version="0.4.9-dev6" />
+    <PackageReference Include="DSRemapper.Core" Version="0.4.9" />
     <PackageReference Include="AsmResolver.DotNet" Version="5.5.1" />
     <PackageReference Include="BouncyCastle.Cryptography" Version="2.6.2" />
     <PackageReference Include="System.CommandLine" Version="2.0.1" />
