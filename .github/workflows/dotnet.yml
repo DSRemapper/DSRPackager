@@ -35,16 +35,10 @@ jobs:
           echo "BASE_VERSION=$BASE_VERSION" >> $GITHUB_OUTPUT
 
       - name: Build Windows
-        run: dotnet publish -c Release -r win-x64 --self-contained -p:PublishSingleFile=true -o "./build/win-x64" \
-          -p:PackageVersion=${{ steps.version_extract.outputs.FULL_VERSION }} \
-          -p:AssemblyVersion=${{ steps.version_extract.outputs.BASE_VERSION }} \
-          -p:FileVersion=${{ steps.version_extract.outputs.BASE_VERSION }}
+        run: dotnet publish -c Release -r win-x64 --self-contained -p:PublishSingleFile=true -o "./build/win-x64" -p:PackageVersion=${{ steps.version_extract.outputs.FULL_VERSION }} -p:AssemblyVersion=${{ steps.version_extract.outputs.BASE_VERSION }} -p:FileVersion=${{ steps.version_extract.outputs.BASE_VERSION }}
 
       - name: Build Linux
-        run: dotnet publish -c Release -r linux-x64 --self-contained -p:PublishSingleFile=true -o "./build/linux-x64" \
-          -p:PackageVersion=${{ steps.version_extract.outputs.FULL_VERSION }} \
-          -p:AssemblyVersion=${{ steps.version_extract.outputs.BASE_VERSION }} \
-          -p:FileVersion=${{ steps.version_extract.outputs.BASE_VERSION }}
+        run: dotnet publish -c Release -r linux-x64 --self-contained -p:PublishSingleFile=true -o "./build/linux-x64" -p:PackageVersion=${{ steps.version_extract.outputs.FULL_VERSION }} -p:AssemblyVersion=${{ steps.version_extract.outputs.BASE_VERSION }} -p:FileVersion=${{ steps.version_extract.outputs.BASE_VERSION }}
 
       - name: Create GitHub Release
         id: create_release
