@@ -10,6 +10,8 @@ using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 using Org.BouncyCastle.Bcpg.OpenPgp;
 using Org.BouncyCastle.Bcpg;
+using Microsoft.Extensions.FileSystemGlobbing;
+using Microsoft.Extensions.FileSystemGlobbing.Abstractions;
 
 namespace DSRPackager
 {
@@ -119,7 +121,7 @@ namespace DSRPackager
             {
                 AppPackager(result.GetValue(throwError), result.GetValue(pluginName)!,
                     result.GetValue(pluginDescription)!, result.GetValue(inputFile)!,
-                    result.GetValue(outputFile)!, links,
+                    result.GetValue(outputFile)!, result.GetValue(ignoreFiles)!, links,
                     result.GetValue(writeOver), result.GetValue(encryptManifest));
             }
             else
@@ -187,7 +189,7 @@ namespace DSRPackager
             }
         }
 
-        static void AppPackager(bool throwError, string appName, string appDescription, FileInfo inputFile, FileInfo outputFile, Dictionary<OSPlatform, string> links, bool writeOver = false, bool encrypt = false)
+        static void AppPackager(bool throwError, string appName, string appDescription, FileInfo inputFile, FileInfo outputFile, string[] ignoredFiles, Dictionary<OSPlatform, string> links, bool writeOver = false, bool encrypt = false)
         {
 
             ConsoleColor originalColor = Console.ForegroundColor;
@@ -205,7 +207,7 @@ namespace DSRPackager
 
 
                 var (pluginVer, coreVer, frameVer) = GetAppInfo(inputFile);
-                FileInfo[] filesToPackage = appDir.GetFiles("*.*", SearchOption.AllDirectories);
+                List<FileInfo> filesToPackage = GetFilesToPackage(appDir, [], ignoredFiles);
 
                 Manifest manifest = new(appName, pluginVer, coreVer, frameVer, appDescription);
 
@@ -295,23 +297,26 @@ namespace DSRPackager
 
         private static List<FileInfo> GetFilesToPackage(DirectoryInfo pluginDir, string[] fileExtensions, string[] ignoredFiles)
         {
-            List<FileInfo> filesToPackage = [];
+            Matcher matcher = new();
+            DirectoryInfoWrapper wrapper = new(pluginDir);
+
             List<string> fullIgnoredPaths = [.. ignoredFiles.Select(f => Path.Combine(pluginDir.FullName, f))];
 
             Console.WriteLine("\nIgnored files:");
             foreach (string file in ignoredFiles)
                 Console.WriteLine($"{file}");
 
+            string[] include = fileExtensions.Length > 0 ? [.. fileExtensions.Select(e => $"**/*.{e.TrimStart('.')}")] : ["**/*"];
+            matcher.AddIncludePatterns(include);
+            matcher.AddExcludePatterns(ignoredFiles);
+            var result = matcher.Execute(wrapper);
+            List<FileInfo> filesToPackage = [.. result.Files.Select(f => new FileInfo(f.Path))];
+
             Console.WriteLine("\nDetected files:");
-            FileInfo[] allFiles = pluginDir.GetFiles("*.*", SearchOption.AllDirectories);
-            foreach (FileInfo file in allFiles)
+            foreach (FileInfo file in filesToPackage)
             {
-                string ext = file.Extension.Length > 1 ? file.Extension[1..] : "";
-                bool forPackage = fileExtensions.Contains(ext) && !fullIgnoredPaths.Contains(file.FullName);
                 string zipPath = Path.GetRelativePath(pluginDir.FullName, file.FullName);
-                Console.WriteLine($"{zipPath} ({(forPackage ? "packaging..." : "ignored")})");
-                if (forPackage)
-                    filesToPackage.Add(file);
+                Console.WriteLine($"{zipPath}");
             }
             return filesToPackage;
         }
@@ -365,7 +370,7 @@ namespace DSRPackager
                     collection = ManifestCollection.FromJson(File.ReadAllText(manifestFile.FullName));
                 }
                 Console.WriteLine("Writing manifest collection file.");
-                if (collection.TryGetValue(manifest, out Manifest curManifest))
+                if (collection.TryGetValue(manifest, out Manifest? curManifest))
                 {
                     var newPlatforms = manifest.DownloadLinks.Where(kv => !curManifest.DownloadLinks.ContainsKey(kv.Key));
                     foreach (var platform in newPlatforms)
