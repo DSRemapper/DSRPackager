@@ -303,20 +303,21 @@ namespace DSRPackager
             List<string> fullIgnoredPaths = [.. ignoredFiles.Select(f => Path.Combine(pluginDir.FullName, f))];
 
             Console.WriteLine("\nIgnored files:");
-            foreach (string file in ignoredFiles)
+            foreach (string file in fullIgnoredPaths)
                 Console.WriteLine($"{file}");
 
             string[] include = fileExtensions.Length > 0 ? [.. fileExtensions.Select(e => $"**/*.{e.TrimStart('.')}")] : ["**/*"];
             matcher.AddIncludePatterns(include);
             matcher.AddExcludePatterns(ignoredFiles);
-            var result = matcher.Execute(wrapper);
-            List<FileInfo> filesToPackage = [.. result.Files.Select(f => new FileInfo(f.Path))];
+            var files = matcher.GetResultsInFullPath(wrapper.FullName);
+            //var result = matcher.Execute(wrapper);
+            List<FileInfo> filesToPackage = [.. /*result.Files*/files.Select(f => new FileInfo(f))];
 
             Console.WriteLine("\nDetected files:");
             foreach (FileInfo file in filesToPackage)
             {
                 string zipPath = Path.GetRelativePath(pluginDir.FullName, file.FullName);
-                Console.WriteLine($"{zipPath}");
+                Console.WriteLine($"{file.FullName}");
             }
             return filesToPackage;
         }
